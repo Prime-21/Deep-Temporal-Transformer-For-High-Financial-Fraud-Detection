@@ -35,7 +35,7 @@ class ModelTrainer:
     def __init__(self, config: Config, device: torch.device):
         self.config = config
         self.device = device
-        self.model: Optional[DeepTemporalTransformer] = None
+        self.model: Optional[DeepTemporalTransformerEnhanced] = None
         self.optimizer: Optional[torch.optim.Optimizer] = None
         self.criterion: Optional[nn.Module] = None
         self.early_stopping: Optional[EarlyStopping] = None
@@ -359,7 +359,7 @@ class ModelTrainer:
             torch.save({
                 'model_state_dict': self.model.state_dict(),
                 'config': self.config,
-                'model_class': 'DeepTemporalTransformer'
+                'model_class': 'DeepTemporalTransformerEnhanced'
             }, normalized_path)
             
             logger.info(f"Model saved to {normalized_path}")
