@@ -33,8 +33,6 @@ wheels/
 *~
 
 # Jupyter
-.ipynb_checkpoints/
-*.ipynb
 
 # Environment
 .env
