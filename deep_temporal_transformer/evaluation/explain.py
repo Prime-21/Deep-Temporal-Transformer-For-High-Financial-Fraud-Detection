@@ -74,7 +74,7 @@ class ModelExplainer:
             plt.tight_layout()
             
             if output_path:
-                from .security_fixes import validate_path
+                from ..utils.security_fixes import validate_path
                 normalized_path = validate_path(output_path, ['.png', '.jpg', '.pdf'])
                 ensure_dir(os.path.dirname(normalized_path))
                 plt.savefig(normalized_path, dpi=300, bbox_inches='tight')
@@ -133,7 +133,7 @@ class ModelExplainer:
             plt.tight_layout()
             
             if output_path:
-                from .security_fixes import validate_path
+                from ..utils.security_fixes import validate_path
                 normalized_path = validate_path(output_path, ['.png', '.jpg', '.pdf'])
                 ensure_dir(os.path.dirname(normalized_path))
                 plt.savefig(normalized_path, dpi=300, bbox_inches='tight')
@@ -191,7 +191,7 @@ class ModelExplainer:
             plt.tight_layout()
             
             if output_path:
-                from .security_fixes import validate_path
+                from ..utils.security_fixes import validate_path
                 normalized_path = validate_path(output_path, ['.png', '.jpg', '.pdf'])
                 ensure_dir(os.path.dirname(normalized_path))
                 plt.savefig(normalized_path, dpi=300, bbox_inches='tight')
@@ -269,7 +269,7 @@ class ModelExplainer:
             plt.tight_layout()
             
             if output_path:
-                from .security_fixes import validate_path
+                from ..utils.security_fixes import validate_path
                 normalized_path = validate_path(output_path, ['.png', '.jpg', '.pdf'])
                 ensure_dir(os.path.dirname(normalized_path))
                 plt.savefig(normalized_path, dpi=300, bbox_inches='tight')
