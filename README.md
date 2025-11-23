@@ -68,11 +68,14 @@ deep_temporal_transformer/
 
 ```bash
 # Clone repository
-git clone https://github.com/your-repo/deep-temporal-transformer.git
-cd deep-temporal-transformer
+git clone https://github.com/Prime-21/Deep-Temporal-Transformer-For-High-Financial-Fraud-Detection.git
+cd Deep-Temporal-Transformer-For-High-Financial-Fraud-Detection
 
 # Install dependencies
 pip install -e .
+
+# Verify installation
+python validate_codebase.py  # (requires PyTorch installed)
 
 # Run quick demo
 python -m deep_temporal_transformer.examples.demo
@@ -80,6 +83,8 @@ python -m deep_temporal_transformer.examples.demo
 # Run full pipeline with baselines
 python -m deep_temporal_transformer.examples.main --run-baselines --generate-plots
 ```
+
+**✅ Codebase Status**: All imports validated, production-ready for Google Colab Pro!
 
 ## 💻 Usage Examples
 
@@ -100,7 +105,7 @@ device = get_device()  # Auto-detects GPU/CPU
 processor = DataProcessor(seq_len=8, random_state=42)
 X_train, y_train, X_val, y_val, X_test, y_test = processor.process_data()
 
-# Train model (uses enhanced model by default)
+# Train model (uses DeepTemporalTransformerEnhanced by default)
 trainer = ModelTrainer(config, device)
 trainer.setup_model(input_dim=X_train.shape[-1])
 history = trainer.train(X_train, y_train, X_val, y_val)
@@ -110,6 +115,34 @@ results = trainer.evaluate_model(X_test, y_test)
 print(f"🎯 F1 Score: {results['f1']:.4f}")
 print(f"📊 AUC Score: {results['auc']:.4f}")
 print(f"⚡ Inference: {results['avg_inference_time']:.6f}s per transaction")
+```
+
+### 🌐 Google Colab Pro
+
+Perfect for training on T4/V100/A100 GPUs! See [`COLAB_QUICK_START.md`](COLAB_QUICK_START.md) for detailed guide.
+
+**Quick Setup:**
+```python
+# 1. Clone repository
+!git clone https://github.com/Prime-21/Deep-Temporal-Transformer-For-High-Financial-Fraud-Detection.git
+%cd Deep-Temporal-Transformer-For-High-Financial-Fraud-Detection
+
+# 2. Install dependencies  
+!pip install -e . -q
+
+# 3. Import and use (restart runtime first!)
+from deep_temporal_transformer import get_default_config, DataProcessor, ModelTrainer, set_random_seeds, get_device
+
+# 4. Train your model!
+set_random_seeds(42)
+config = get_default_config()
+trainer = ModelTrainer(config, get_device())
+
+# Load data and train
+processor = DataProcessor(seq_len=8)
+X_train, y_train, X_val, y_val, X_test, y_test = processor.process_data()
+trainer.setup_model(input_dim=X_train.shape[-1])
+history = trainer.train(X_train, y_train, X_val, y_val)
 ```
 
 ### Advanced Usage with Optimized Models

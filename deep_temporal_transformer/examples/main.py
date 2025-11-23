@@ -14,7 +14,7 @@ if torch.cuda.is_available():
     torch.cuda.manual_seed_all(42)
 
 from .config import get_default_config, Config
-from .utils import set_random_seeds, get_device, setup_logging, save_json
+from ..utils.utils import set_random_seeds, get_device, setup_logging, save_json
 from .data import DataProcessor
 from .model import DeepTemporalTransformer
 from .train import ModelTrainer
@@ -99,7 +99,7 @@ def run_baseline_comparison(
         comparison_results = baseline_models.compare_models(X_test, y_test)
         
         # Save results
-        from .security_fixes import validate_path
+        from ..utils.security_fixes import validate_path
         baseline_results_path = validate_path(os.path.join(output_dir, 'baseline_results.json'), ['.json'])
         save_json(comparison_results, baseline_results_path)
         
@@ -139,7 +139,7 @@ def run_deep_temporal_transformer(
         test_results = trainer.evaluate_model(X_test, y_test)
         
         # Save model
-        from .security_fixes import validate_path
+        from ..utils.security_fixes import validate_path
         model_path = validate_path(os.path.join(config.output_dir, 'deep_temporal_transformer.pt'), ['.pt', '.pth'])
         trainer.save_model(model_path)
         
@@ -176,7 +176,7 @@ def generate_visualizations(
         
         # Load trained model for explanations
         model_path = transformer_results['model_path']
-        model = DeepTemporalTransformer(
+        model = DeepTemporalTransformerEnhanced(
             input_dim=X_test.shape[-1],
             seq_len=config.model.seq_len,
             d_model=config.model.d_model,
@@ -194,7 +194,7 @@ def generate_visualizations(
         explainer = ModelExplainer(model, device)
         
         # Plot training history
-        from .security_fixes import validate_path
+        from ..utils.security_fixes import validate_path
         training_history = transformer_results['training_history']
         history_plot_path = validate_path(os.path.join(config.output_dir, 'training_history.png'), ['.png'])
         explainer.plot_training_history(training_history, history_plot_path)
@@ -326,7 +326,7 @@ def main():
             )
         
         # Save final configuration
-        from .security_fixes import validate_path
+        from ..utils.security_fixes import validate_path
         config_path = validate_path(os.path.join(config.output_dir, 'config.json'), ['.json'])
         save_json(config.__dict__, config_path)
         
