@@ -22,7 +22,7 @@ import math
 # Import our custom modules
 try:
     from .attention_mechanisms import (
-        MultiHead SparseAttention,
+        MultiHeadSparseAttention,
         AdaptiveTemporalAttention,
         MultiHeadAttentionWithALiBi
     )
