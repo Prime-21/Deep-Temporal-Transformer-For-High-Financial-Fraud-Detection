@@ -113,7 +113,7 @@ class SparseRouter(nn.Module):
             gate_logits = gate_logits + noise
         
         # Select top-k experts
-       gates_full = F.softmax(gate_logits, dim=-1)
+        gates_full = F.softmax(gate_logits, dim=-1)
         top_k_gates, expert_indices = torch.topk(gates_full, self.top_k, dim=-1)
         
         # Renormalize top-k gates
