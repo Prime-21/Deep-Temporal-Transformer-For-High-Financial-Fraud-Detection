@@ -106,10 +106,36 @@ print(f"📊 Model config: d_model={config.model.d_model}, layers={config.model.
 
 ---
 
-## 📋 Cell 8: Load Data
+## 📋 Cell 8: Configure Training (GPU Optimized for 15GB)
 ```python
-# Load and process data (using synthetic data for demo)
-processor = DataProcessor(seq_len=8, random_state=42)
+# ⚡ OPTIMIZED FOR 15GB GPU - Maximum Performance!
+config.training.batch_size = 2048      # 🔥 8x larger (was 256)
+config.training.epochs = 20            # More epochs for better training
+config.training.learning_rate = 5e-4   # Higher LR for larger batches
+
+# 🧠 LARGER MODEL (uses 10-12 GB of your 15GB GPU)
+config.model.d_model = 512             # Bigger model (was 256)
+config.model.num_layers = 8            # Deeper (was 6)
+config.model.nhead = 16                # More attention heads (was 8)
+config.model.dim_feedforward = 2048    # Larger FFN (was 1024)
+config.model.memory_slots = 2048       # More memory (was 1024)
+
+# 📊 MORE DATA
+config.data.n_samples = 500000         # More training data
+config.data.seq_len = 16               # Longer sequences (was 8)
+
+print(f"✅ GPU-Optimized Config:")
+print(f"   Batch Size: {config.training.batch_size}")
+print(f"   Model Dimension: {config.model.d_model}")
+print(f"   Expected GPU Usage: 10-12 GB / 15 GB")
+```
+
+---
+
+## 📋 Cell 9: Load Data
+```python
+# Load and process data (using optimized sequence length)
+processor = DataProcessor(seq_len=config.data.seq_len, random_state=42)
 X_train, y_train, X_val, y_val, X_test, y_test = processor.process_data()
 
 print(f"✅ Data loaded:")
@@ -121,28 +147,30 @@ print(f"  Fraud rate: {y_train.mean():.2%}")
 
 ---
 
-## 📋 Cell 9: Configure and Train
+## 📋 Cell 10: Train Model
 ```python
-# Configure training (quick demo - 10 epochs)
-config.training.epochs = 10
-config.training.batch_size = 256
-
 # Create trainer
 trainer = ModelTrainer(config, device)
 trainer.setup_model(input_dim=X_train.shape[-1])
 
-print(f"🧠 Model initialized with {sum(p.numel() for p in trainer.model.parameters()):,} parameters")
+print(f"🧠 Model initialized:")
+print(f"   Parameters: {sum(p.numel() for p in trainer.model.parameters()):,}")
+print(f"   Expected size: 20-50M parameters")
 print("\n🎯 Starting training...")
 
 # Train!
 history = trainer.train(X_train, y_train, X_val, y_val)
 
-print("\n✅ Training complete!")
+# Check GPU usage
+import torch
+gpu_used = torch.cuda.max_memory_allocated() / 1024**3
+print(f"\n📊 GPU Memory Used: {gpu_used:.2f} GB / 15 GB ({gpu_used/15*100:.1f}%)")
+print("✅ Training complete!")
 ```
 
 ---
 
-## 📋 Cell 10: Evaluate
+## 📋 Cell 11: Evaluate
 ```python
 # Evaluate on test set
 results = trainer.evaluate_model(X_test, y_test)
