@@ -7,9 +7,13 @@ from typing import Tuple, List, Dict, Optional, Any
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.model_selection import train_test_split
 
-from .utils import setup_logging
-
-logger = setup_logging()
+try:
+    from ..utils.utils import setup_logging
+    logger = setup_logging()
+except:
+    import logging
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)
 
 
 class DataProcessor:
