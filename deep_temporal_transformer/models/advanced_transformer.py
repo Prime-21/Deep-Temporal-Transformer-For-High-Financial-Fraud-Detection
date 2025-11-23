@@ -10,7 +10,7 @@ This module integrates all state-of-the-art architectural innovations:
 - ALiBi positional bias
 - Uncertainty quantification
 
-Optimized for Google Colab Pro with GPU acceleration.
+Optimized for GPU acceleration.
 """
 
 import torch

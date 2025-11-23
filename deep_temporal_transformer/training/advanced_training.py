@@ -1,7 +1,7 @@
 """
-Advanced Training Utilities for Colab Pro GPU Optimization
+Advanced Training Utilities for GPU Optimization
 
-This module provides production-ready training utilities optimized for Google Colab Pro:
+This module provides production-ready training utilities optimized for GPU training:
 - GPU hardware detection and optimization
 - Mixed precision training (FP16/BF16)
 - Advanced loss functions (Focal, Class-Balanced, Contrastive)

@@ -1,5 +1,5 @@
-# Deep Temporal Transformer - Requirements for Google Colab Pro
-# Optimized for Python 3.8+
+# Deep Temporal Transformer - Requirements
+# Python 3.8+
 
 # Core Deep Learning
 torch>=2.0.0

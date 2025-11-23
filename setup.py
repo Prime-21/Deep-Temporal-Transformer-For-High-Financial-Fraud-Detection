@@ -14,7 +14,7 @@ setup(
         "seaborn>=0.11.0"
     ],
     python_requires=">=3.8",
-    author="Deep Temporal Transformer Team",
+    author="Prasad Kharat",
     description="Deep Temporal Transformer for High Frequency Financial Fraud Detection",
     long_description="A state-of-the-art transformer-based model for detecting fraudulent transactions in high-frequency financial data.",
     package_dir={'': '.'},

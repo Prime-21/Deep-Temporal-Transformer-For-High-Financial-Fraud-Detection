@@ -5,7 +5,6 @@
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/)
 
 ## ✨ Key Features
 
@@ -52,25 +51,14 @@ deep_temporal_transformer/
 │   └── config.py         # ⚙️ Configuration management
 ├── examples/
 │   ├── main.py           # 🚀 Full pipeline
-│   ├── demo.py           # 🎮 Quick demo
-│   └── run_colab.py      # 📱 Google Colab optimized
+│   └── demo.py           # 🎮 Quick demo
 └── notebooks/
-    └── colab_milestone4.ipynb # 📓 Interactive notebook
+    └── *.ipynb           # 📓 Interactive notebooks
 ```
 
 ## 🚀 Quick Start
 
-### Option 1: Google Colab Pro (Recommended)
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/your-repo/blob/main/colab_milestone4.ipynb)
-
-```python
-# Upload project to Colab, then run:
-!pip install torch scikit-learn pandas matplotlib seaborn
-%run deep_temporal_transformer/examples/run_colab.py
-```
-
-### Option 2: Local Installation
+### Installation
 
 ```bash
 # Clone repository
@@ -240,7 +228,7 @@ seaborn>=0.11.0       # Statistical visualization
 ```bibtex
 @article{deep_temporal_transformer_2024,
   title={Deep Temporal Transformer for High-Frequency Financial Fraud Detection},
-  author={Your Name},
+  author={Prasad Kharat},
   journal={arXiv preprint},
   year={2024}
 }

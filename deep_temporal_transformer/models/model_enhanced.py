@@ -12,8 +12,8 @@ Academic References:
     - Lin et al. (2017): "Focal Loss for Dense Object Detection"
     - Shaw et al. (2018): "Self-Attention with Relative Position Representations"
     
-Author: Master's Thesis - Financial Fraud Detection
-Optimized for: Google Colab Pro (GPU Training)
+Author: Prasad Kharat
+Optimized for: GPU Training
 """
 
 import math
