@@ -1,15 +1,15 @@
 """Demo script for Deep Temporal Transformer fraud detection."""
 import logging
-from DeepTemporal_Thesis_extended import (
+from deep_temporal_transformer import (
     get_default_config,
     DataProcessor,
     ModelTrainer,
-    BaselineModels,
-    ModelExplainer,
+    EnhancedBaselineModels,
     set_random_seeds,
-    get_device,
-    setup_logging
+    get_device
 )
+from deep_temporal_transformer.evaluation.explain import ModelExplainer
+from deep_temporal_transformer.utils.utils import setup_logging
 
 def run_demo():
     """Run a complete demo of the fraud detection system."""
@@ -40,7 +40,7 @@ def run_demo():
         
         # Train baseline models
         logger.info("Training baseline models...")
-        baseline_models = BaselineModels(random_state=42)
+        baseline_models = EnhancedBaselineModels(random_state=42)
         
         rf_results = baseline_models.train_random_forest(
             X_train, y_train, X_val, y_val, n_estimators=50

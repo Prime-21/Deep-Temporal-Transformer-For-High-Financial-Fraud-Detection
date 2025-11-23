@@ -35,25 +35,31 @@
 ```
 deep_temporal_transformer/
 ├── models/
-│   ├── model.py           # 🧠 Deep Temporal Transformer
-│   └── baseline.py        # 📊 Baseline models (RF, LR)
+│   ├── advanced_transformer.py  # 🧠 Advanced model with sparse attention, MoE, temporal modules
+│   ├── model_enhanced.py        # 🚀 Enhanced transformer with multi-scale features
+│   ├── attention_mechanisms.py  # ⚡ Sparse attention, temporal attention, ALiBi
+│   ├── temporal_modules.py      # 🕒 TCN encoder, hierarchical pyramid
+│   ├── moe.py                   # 🎯 Mixture of Experts routing
+│   └── baseline_enhanced.py     # 📊 Enhanced baselines (LSTM, CNN, RF, XGBoost)
 ├── data/
-│   └── data.py           # 🔄 Data processing pipeline
+│   └── data.py                  # 🔄 Data processing pipeline
 ├── training/
-│   └── train.py          # 🎯 Model training & evaluation
+│   ├── train.py                 # 🎯 Model training & evaluation
+│   └── advanced_training.py     # ⚡ GPU optimization, advanced losses, curriculum learning
 ├── evaluation/
-│   └── explain.py        # 🔍 Model interpretability
+│   └── explain.py               # 🔍 Model interpretability
 ├── utils/
-│   ├── utils.py          # 🛠️ General utilities
-│   ├── security_fixes.py # 🔒 Security validation
-│   └── performance_utils.py # ⚡ Performance optimization
+│   ├── utils.py                 # 🛠️ General utilities
+│   ├── security_fixes.py        # 🔒 Security validation
+│   ├── performance_utils.py     # ⚡ Performance optimization
+│   └── validation.py            # ✅ Input validation
 ├── configs/
-│   └── config.py         # ⚙️ Configuration management
+│   └── config.py                # ⚙️ Configuration management
 ├── examples/
-│   ├── main.py           # 🚀 Full pipeline
-│   └── demo.py           # 🎮 Quick demo
-└── notebooks/
-    └── *.ipynb           # 📓 Interactive notebooks
+│   ├── main.py                  # 🚀 Full pipeline
+│   └── demo.py                  # 🎮 Quick demo
+└── tests/
+    └── test_basic.py            # 🧪 Basic tests
 ```
 
 ## 🚀 Quick Start
@@ -94,7 +100,7 @@ device = get_device()  # Auto-detects GPU/CPU
 processor = DataProcessor(seq_len=8, random_state=42)
 X_train, y_train, X_val, y_val, X_test, y_test = processor.process_data()
 
-# Train model
+# Train model (uses enhanced model by default)
 trainer = ModelTrainer(config, device)
 trainer.setup_model(input_dim=X_train.shape[-1])
 history = trainer.train(X_train, y_train, X_val, y_val)
@@ -104,6 +110,36 @@ results = trainer.evaluate_model(X_test, y_test)
 print(f"🎯 F1 Score: {results['f1']:.4f}")
 print(f"📊 AUC Score: {results['auc']:.4f}")
 print(f"⚡ Inference: {results['avg_inference_time']:.6f}s per transaction")
+```
+
+### Advanced Usage with Optimized Models
+
+```python
+from deep_temporal_transformer.models.advanced_transformer import DeepTemporalTransformerAdvanced
+from deep_temporal_transformer.training.advanced_training import (
+    detect_and_configure_gpu, FocalLossAdvanced
+)
+
+# Auto-configure for your GPU (A100/V100/T4)
+gpu_config = detect_and_configure_gpu()
+device = gpu_config['device']
+
+# Initialize advanced model with all innovations
+model = DeepTemporalTransformerAdvanced(
+    input_dim=X_train.shape[-1],
+    d_model=256,
+    num_heads=8,
+    num_layers=6,
+    num_experts=8,
+    memory_slots=512,
+    use_gradient_checkpointing=True  # For large models
+).to(device)
+
+# Advanced loss function
+criterion = FocalLossAdvanced(auto_tune_gamma=True)
+
+# Uncertainty estimation
+mean_probs, uncertainty = model.predict_with_uncertainty(X_test, n_samples=10)
 ```
 
 ### Advanced Configuration

@@ -1,6 +1,6 @@
 """Basic tests for the package."""
 import numpy as np
-from DeepTemporal_Thesis_extended import get_default_config, DataProcessor
+from deep_temporal_transformer import get_default_config, DataProcessor
 
 
 def test_config():
