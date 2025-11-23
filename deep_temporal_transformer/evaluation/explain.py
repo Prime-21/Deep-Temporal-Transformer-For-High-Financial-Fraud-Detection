@@ -12,9 +12,13 @@ torch.manual_seed(42)
 if torch.cuda.is_available():
     torch.cuda.manual_seed_all(42)
 
-from .utils import setup_logging, ensure_dir
-
-logger = setup_logging()
+try:
+    from ..utils.utils import setup_logging, ensure_dir
+    logger = setup_logging()
+except:
+    import logging
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)
 
 
 class ModelExplainer:
