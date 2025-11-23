@@ -43,7 +43,7 @@ class ModelTrainer:
     def setup_model(self, input_dim: int) -> None:
         """Initialize model with proper configuration."""
         try:
-            self.model = DeepTemporalTransformer(
+            self.model = DeepTemporalTransformerEnhanced(
                 input_dim=input_dim,
                 seq_len=self.config.model.seq_len,
                 d_model=self.config.model.d_model,
@@ -63,7 +63,7 @@ class ModelTrainer:
             )
             
             # Setup loss function
-            self.criterion = FocalLoss(
+            self.criterion = FocalLossEnhanced(
                 alpha=self.config.training.focal_alpha,
                 gamma=self.config.training.focal_gamma
             )
