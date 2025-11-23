@@ -18,11 +18,15 @@ from sklearn.metrics import (
     classification_report
 )
 
-from .model import DeepTemporalTransformer, FocalLoss
-from .config import Config
-from .utils import setup_logging, ensure_dir, save_json, EarlyStopping
-
-logger = setup_logging()
+try:
+    from ..models.model_enhanced import DeepTemporalTransformerEnhanced, FocalLossEnhanced
+    from ..configs.config import Config
+    from ..utils.utils import setup_logging, ensure_dir, save_json, EarlyStopping
+    logger = setup_logging()
+except:
+    import logging
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)
 
 
 class ModelTrainer:
