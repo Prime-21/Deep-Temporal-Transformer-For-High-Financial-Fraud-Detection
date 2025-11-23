@@ -146,7 +146,7 @@ class ModelTrainer:
                     
                     # Measure inference time
                     start_time = time.time()
-                    logits, _ = self.model(batch_tensor)
+                    logits, _, _ = self.model(batch_tensor)  # logits, attention_weights, intermediates
                     inference_time = (time.time() - start_time) / len(batch_X)
                     inference_times.append(inference_time)
                     
@@ -229,7 +229,7 @@ class ModelTrainer:
                 
                 # Forward pass
                 self.optimizer.zero_grad()
-                logits, _ = self.model(batch_X_tensor)
+                logits, _, _ = self.model(batch_X_tensor)  # logits, attention_weights, intermediates
                 loss = self.criterion(logits, batch_y_tensor)
                 
                 # Backward pass
