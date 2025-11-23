@@ -344,7 +344,7 @@ class ModelExplainer:
                     sample_tensor = torch.tensor(sample_x, dtype=torch.float32, device=self.device)
                     
                     # Get prediction and attention
-                    logits, attention = self.model(sample_tensor)
+                    logits, attention, _ = self.model(sample_tensor)  # logits, attention_weights, intermediates
                     prob = torch.sigmoid(logits).cpu().numpy()[0]
                     pred = int(prob > 0.5)
                     

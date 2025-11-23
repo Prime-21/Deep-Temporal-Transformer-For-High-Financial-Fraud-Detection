@@ -86,7 +86,7 @@ class DataProcessor:
         try:
             if path and os.path.exists(path):
                 # Validate path security
-                from .security_fixes import validate_path
+                from ..utils.security_fixes import validate_path
                 normalized_path = validate_path(path, ['.csv'])
                 
                 df = pd.read_csv(normalized_path)

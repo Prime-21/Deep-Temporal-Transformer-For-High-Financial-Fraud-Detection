@@ -318,7 +318,7 @@ class ModelTrainer:
                     best_model_state = self.model.state_dict().copy()
                     
                     # Save checkpoint
-                    from .security_fixes import validate_path
+                    from ..utils.security_fixes import validate_path
                     checkpoint_path = validate_path(os.path.join(self.config.output_dir, 'best_model.pt'), ['.pt', '.pth'])
                     torch.save(best_model_state, checkpoint_path)
                 
@@ -350,7 +350,7 @@ class ModelTrainer:
                 raise RuntimeError("No model to save")
             
             # Validate path
-            from .security_fixes import validate_path
+            from ..utils.security_fixes import validate_path
             normalized_path = validate_path(path, ['.pt', '.pth'])
             
             ensure_dir(os.path.dirname(normalized_path))
@@ -372,7 +372,7 @@ class ModelTrainer:
         """Load model state safely."""
         try:
             # Validate path
-            from .security_fixes import validate_path
+            from ..utils.security_fixes import validate_path
             normalized_path = validate_path(path, ['.pt', '.pth'])
             if not os.path.exists(normalized_path):
                 raise FileNotFoundError(f"Model file not found: {normalized_path}")
