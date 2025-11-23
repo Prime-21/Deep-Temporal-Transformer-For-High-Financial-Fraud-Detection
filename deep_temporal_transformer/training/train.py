@@ -333,7 +333,7 @@ class ModelTrainer:
                 logger.info(f"Loaded best model from epoch {history['best_epoch']}")
             
             # Save training history
-            from .security_fixes import validate_path
+            from ..utils.security_fixes import validate_path
             history_path = validate_path(os.path.join(self.config.output_dir, 'training_history.json'), ['.json'])
             save_json(history, history_path)
             
