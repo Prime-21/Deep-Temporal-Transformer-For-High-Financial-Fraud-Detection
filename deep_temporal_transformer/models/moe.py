@@ -123,7 +123,13 @@ class SparseRouter(nn.Module):
         # Importance: average gate value per expert
         importance = gates_full.mean(dim=0)
         # Load: frequency of expert being in top-k
-        load = (expert_indices == torch.arange(self.num_experts, device=x.device).view(1, -1, 1)).float().mean(dim=[0, 2])
+        # expert_indices shape: (batch * seq_len, top_k)
+        # Create one-hot encoding for each expert
+        batch_size_flat = expert_indices.shape[0]
+        expert_mask = torch.zeros(batch_size_flat, self.num_experts, device=x.device)
+        for k in range(self.top_k):
+            expert_mask.scatter_(1, expert_indices[:, k:k+1], 1.0)
+        load = expert_mask.mean(dim=0)  # (num_experts,)
         
         # Coefficient of variation loss
         load_balance_loss = self.num_experts * (importance * load).sum()
