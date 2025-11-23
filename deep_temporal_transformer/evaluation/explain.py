@@ -148,7 +148,8 @@ class ModelExplainer:
     
     def plot_confusion_matrix(
         self, 
-        confusion_matrix: np.ndarray,
+        X_or_cm: np.ndarray,
+        y: Optional[np.ndarray] = None,
         class_names: list = ['Normal', 'Fraud'],
         output_path: Optional[str] = None,
         title: str = "Confusion Matrix"
@@ -157,12 +158,33 @@ class ModelExplainer:
         Plot confusion matrix with proper formatting.
         
         Args:
-            confusion_matrix: 2x2 confusion matrix
+            X_or_cm: Either a 2x2 confusion matrix OR input data X (will compute CM)
+            y: True labels (required if X_or_cm is input data)
             class_names: List of class names
             output_path: Path to save the plot
             title: Plot title
         """
         try:
+            # Determine if we got a confusion matrix or need to compute it
+            if X_or_cm.ndim == 2 and X_or_cm.shape[0] == 2 and X_or_cm.shape[1] == 2:
+                # Already a confusion matrix
+                confusion_matrix = X_or_cm
+            elif y is not None:
+                # Compute confusion matrix from X and y
+                from sklearn.metrics import confusion_matrix as compute_cm
+                
+                # Get predictions
+                self.model.eval()
+                with torch.no_grad():
+                    X_tensor = torch.tensor(X_or_cm, dtype=torch.float32, device=self.device)
+                    logits, _, _ = self.model(X_tensor)
+                    probs = torch.sigmoid(logits).cpu().numpy()
+                    y_pred = (probs > 0.5).astype(int)
+                
+                confusion_matrix = compute_cm(y, y_pred)
+            else:
+                raise ValueError("Either provide a 2x2 confusion matrix or both X and y")
+            
             plt.figure(figsize=(8, 6))
             
             # Create heatmap
